@@ -2,12 +2,12 @@
  * This file contains template code.
  * There is no need to edit this file unless you want to change template functionality.
  */
+use advent_of_code::current_event_day;
 use std::{
     fs::{File, OpenOptions},
     io::Write,
     process,
 };
-use chrono::{Datelike, FixedOffset, TimeZone, Utc};
 
 const MODULE_TEMPLATE: &str = r###"pub fn part_one(input: &str) -> Option<u32> {
     None
@@ -41,11 +41,10 @@ mod tests {
 }
 "###;
 
-const RELEASE_TIMEZONE_OFFSET: i32 = -5 * 3600;
-
 fn parse_args() -> Result<u8, pico_args::Error> {
     let mut args = pico_args::Arguments::from_env();
-    args.free_from_str().or_else(|_| current_event_day().ok_or(pico_args::Error::MissingArgument))
+    args.free_from_str()
+        .or_else(|_| current_event_day().ok_or(pico_args::Error::MissingArgument))
 }
 
 fn safe_create_file(path: &str) -> Result<File, std::io::Error> {
@@ -55,18 +54,6 @@ fn safe_create_file(path: &str) -> Result<File, std::io::Error> {
 fn create_file(path: &str) -> Result<File, std::io::Error> {
     OpenOptions::new().write(true).create(true).open(path)
 }
-
-fn current_event_day() -> Option<u8> {
-    let now = FixedOffset::east_opt(RELEASE_TIMEZONE_OFFSET)?
-        .from_utc_datetime(&Utc::now().naive_utc());
-    let day = now.day();
-    if now.month() == 12 && (1..=25).contains(&day) {
-        Some(day as u8)
-    } else {
-        None
-    }
-}
-
 
 fn main() {
     let day = match parse_args() {

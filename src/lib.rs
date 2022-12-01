@@ -1,8 +1,4 @@
-/*
- * This file contains template code.
- * There is no need to edit this file unless you want to change template functionality.
- * Prefer `./helpers.rs` if you want to extract code from your solutions.
- */
+use chrono::{Datelike, FixedOffset, TimeZone, Utc};
 use std::env;
 use std::fs;
 
@@ -11,6 +7,8 @@ pub mod helpers;
 pub const ANSI_ITALIC: &str = "\x1b[3m";
 pub const ANSI_BOLD: &str = "\x1b[1m";
 pub const ANSI_RESET: &str = "\x1b[0m";
+
+const RELEASE_TIMEZONE_OFFSET: i32 = -5 * 3600;
 
 #[macro_export]
 macro_rules! solve {
@@ -75,6 +73,17 @@ pub fn parse_exec_time(output: &str) -> f64 {
             }
         }
     })
+}
+
+pub fn current_event_day() -> Option<u8> {
+    let now =
+        FixedOffset::east_opt(RELEASE_TIMEZONE_OFFSET)?.from_utc_datetime(&Utc::now().naive_utc());
+    let day = now.day();
+    if now.month() == 12 && (1..=25).contains(&day) {
+        Some(day as u8)
+    } else {
+        None
+    }
 }
 
 /// copied from: https://github.com/rust-lang/rust/blob/1.64.0/library/std/src/macros.rs#L328-L333

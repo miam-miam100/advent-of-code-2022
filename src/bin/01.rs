@@ -11,7 +11,6 @@ pub fn part_one(input: &str) -> Option<u32> {
     elves.into_iter().max()
 }
 
-
 pub fn part_two(input: &str) -> Option<u32> {
     let mut elves = vec![0];
     for line in input.lines() {
