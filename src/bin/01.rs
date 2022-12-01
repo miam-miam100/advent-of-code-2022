@@ -23,7 +23,7 @@ pub fn part_two(input: &str) -> Option<u32> {
         }
     }
     elves.sort_by(|i, z| z.cmp(i));
-    Some(elves[0] + elves[1] + elves[2])
+    Some(elves.into_iter().take(3).sum())
 }
 
 fn main() {
@@ -39,12 +39,12 @@ mod tests {
     #[test]
     fn test_part_one() {
         let input = advent_of_code::read_file("examples", 1);
-        assert_eq!(part_one(&input), None);
+        assert_eq!(part_one(&input), Some(24000));
     }
 
     #[test]
     fn test_part_two() {
         let input = advent_of_code::read_file("examples", 1);
-        assert_eq!(part_two(&input), None);
+        assert_eq!(part_two(&input), Some(45000));
     }
 }
