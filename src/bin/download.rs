@@ -6,6 +6,9 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::{env::temp_dir, io, process::Command};
 use std::{fs, process};
+use chrono::{Datelike, FixedOffset, TimeZone, Utc};
+
+const RELEASE_TIMEZONE_OFFSET: i32 = -5 * 3600;
 
 struct Args {
     day: u8,
@@ -15,7 +18,7 @@ struct Args {
 fn parse_args() -> Result<Args, pico_args::Error> {
     let mut args = pico_args::Arguments::from_env();
     Ok(Args {
-        day: args.free_from_str()?,
+        day: args.free_from_str().or_else(|_| current_event_day().ok_or(pico_args::Error::MissingArgument))?,
         year: args.opt_value_from_str(["-y", "--year"])?,
     })
 }
@@ -24,6 +27,17 @@ fn remove_file(path: &PathBuf) {
     #[allow(unused_must_use)]
     {
         fs::remove_file(path);
+    }
+}
+
+fn current_event_day() -> Option<u8> {
+    let now = FixedOffset::east_opt(RELEASE_TIMEZONE_OFFSET)?
+        .from_utc_datetime(&Utc::now().naive_utc());
+    let day = now.day();
+    if now.month() == 12 && (1..=25).contains(&day) {
+        Some(day as u8)
+    } else {
+        None
     }
 }
 
