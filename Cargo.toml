@@ -1,7 +1,9 @@
 [package]
 name = "advent_of_code"
 version = "0.8.0"
-authors = ["Felix Spöttel <1682504+fspoettel@users.noreply.github.com>"]
+authors = ["miam-miam100 <MiamMiam@mailbox.org>", "Felix Spöttel <1682504+fspoettel@users.noreply.github.com>"]
+license = "MIT"
+readme = "README.md"
 edition = "2021"
 default-run = "advent_of_code"
 publish = false
