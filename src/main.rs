@@ -11,25 +11,16 @@ fn main() {
                 .output()
                 .unwrap();
 
-            println!("----------");
-            println!("{}| Day {} |{}", ANSI_BOLD, day, ANSI_RESET);
-            println!("----------");
-
             let output = String::from_utf8(cmd.stdout).unwrap();
             let is_empty = output.is_empty();
-
-            println!(
-                "{}",
-                if is_empty {
-                    "Not solved."
-                } else {
-                    output.trim()
-                }
-            );
 
             if is_empty {
                 0_f64
             } else {
+                println!("----------");
+                println!("{}| Day {} |{}", ANSI_BOLD, day, ANSI_RESET);
+                println!("----------");
+                println!("{}", output.trim());
                 advent_of_code::parse_exec_time(&output)
             }
         })
