@@ -1,3 +1,4 @@
+use std::cmp::Ordering;
 use std::collections::HashSet;
 
 pub fn part_one(input: &str) -> Option<usize> {
@@ -56,25 +57,17 @@ fn step_tail(head: (i32, i32), tail: &mut (i32, i32)) -> bool {
         (0, 0) | (0, 1) | (0, -1) | (1, 0) | (-1, 0) | (1, 1) | (1, -1) | (-1, 1) | (-1, -1) => {
             false
         }
-        (0, y) if y < 0 => {
-            tail.1 += -1;
-            true
-        }
-        (0, y) if y > 0 => {
-            tail.1 += 1;
-            true
-        }
-        (x, 0) if x < 0 => {
-            tail.0 += -1;
-            true
-        }
-        (x, 0) if x > 0 => {
-            tail.0 += 1;
-            true
-        }
-        (x, y) => {
-            tail.0 += if x > 0 { 1 } else { -1 };
-            tail.1 += if y > 0 { 1 } else { -1 };
+        _ => {
+            tail.0 += match head.0.cmp(&tail.0) {
+                Ordering::Less => -1,
+                Ordering::Equal => 0,
+                Ordering::Greater => 1,
+            };
+            tail.1 += match head.1.cmp(&tail.1) {
+                Ordering::Less => -1,
+                Ordering::Equal => 0,
+                Ordering::Greater => 1,
+            };
             true
         }
     }
