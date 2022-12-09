@@ -26,8 +26,12 @@ pub fn part_two(input: &str) -> Option<usize> {
             heads_pos[0].0 += dx;
             heads_pos[0].1 += dy;
             for idx in 1..10 {
-                if step_tail(heads_pos[idx - 1], &mut heads_pos[idx]) && idx == 9 {
-                    visited.insert(heads_pos[idx]);
+                if step_tail(heads_pos[idx - 1], &mut heads_pos[idx]) {
+                    if idx == 9 {
+                        visited.insert(heads_pos[9]);
+                    }
+                } else {
+                    break;
                 }
             }
         }
