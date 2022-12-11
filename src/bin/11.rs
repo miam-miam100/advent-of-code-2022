@@ -12,10 +12,32 @@ pub struct MonkeyParser;
 
 struct Monkey {
     items: VecDeque<u64>,
-    operation: Box<dyn Fn(u64) -> u64>,
+    operation: Calculation,
     test: u64,
     true_condition: usize,
     false_condition: usize,
+}
+
+enum Calculation {
+    ZeroAddition,
+    OneAddition(u64),
+    TwoAddition(u64, u64),
+    ZeroMultiply,
+    OneMultiply(u64),
+    TwoMultiply(u64, u64),
+}
+
+impl Calculation {
+    fn calc(&self, old: u64) -> u64 {
+        match self {
+            Calculation::ZeroAddition => old + old,
+            Calculation::OneAddition(x) => old + x,
+            Calculation::TwoAddition(x, y) => x + y,
+            Calculation::ZeroMultiply => old * old,
+            Calculation::OneMultiply(x) => old * x,
+            Calculation::TwoMultiply(x, y) => x * y,
+        }
+    }
 }
 
 pub fn part_one(input: &str) -> Option<u32> {
@@ -26,7 +48,7 @@ pub fn part_one(input: &str) -> Option<u32> {
             let monkey = monkeys.get_mut(idx)?;
             let mut items = vec![];
             while let Some(item) = monkey.items.pop_front() {
-                let worry = ((monkey.operation)(item) / 3) % div;
+                let worry = (monkey.operation.calc(item) / 3) % div;
                 *inspections.get_mut(idx)? += 1;
                 items.push((
                     if worry % monkey.test == 0 {
@@ -53,7 +75,7 @@ pub fn part_two(input: &str) -> Option<u64> {
             let monkey = monkeys.get_mut(idx)?;
             let mut items = vec![];
             while let Some(item) = monkey.items.pop_front() {
-                let worry: u64 = (monkey.operation)(item) % div;
+                let worry = monkey.operation.calc(item) % div;
                 *inspections.get_mut(idx)? += 1;
                 items.push((
                     if worry % monkey.test == 0 {
@@ -118,32 +140,25 @@ fn get_input(input: &str) -> Option<(Vec<Monkey>, u64)> {
     ))
 }
 
-fn get_operations<'a>(
-    mut operations: impl Iterator<Item = &'a str>,
-) -> Option<Box<dyn Fn(u64) -> u64>> {
+fn get_operations<'a>(mut operations: impl Iterator<Item = &'a str>) -> Option<Calculation> {
+    use Calculation::*;
     let term1 = operations.next()?;
     let op = operations.next()?;
     let term2 = operations.next()?;
     Some(match (op, term1, term2) {
-        ("+", "old", "old") => Box::new(|old| old + old),
-        ("+", "old", x) | ("+", x, "old") => {
-            let x = x.parse::<u64>().ok()?;
-            Box::new(move |old| old + x)
-        }
+        ("+", "old", "old") => ZeroAddition,
+        ("+", "old", x) | ("+", x, "old") => OneAddition(x.parse::<u64>().ok()?),
         ("+", x, y) => {
             let x = x.parse::<u64>().ok()?;
             let y = y.parse::<u64>().ok()?;
-            Box::new(move |_| x + y)
+            TwoAddition(x, y)
         }
-        ("*", "old", "old") => Box::new(|old| old * old),
-        ("*", "old", x) | ("*", x, "old") => {
-            let x = x.parse::<u64>().ok()?;
-            Box::new(move |old| old * x)
-        }
+        ("*", "old", "old") => ZeroMultiply,
+        ("*", "old", x) | ("*", x, "old") => OneMultiply(x.parse::<u64>().ok()?),
         ("*", x, y) => {
             let x = x.parse::<u64>().ok()?;
             let y = y.parse::<u64>().ok()?;
-            Box::new(move |_| x * y)
+            TwoMultiply(x, y)
         }
         _ => unreachable!(),
     })
