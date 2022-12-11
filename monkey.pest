@@ -1,0 +1,25 @@
+monkey = {name ~ NEWLINE+ ~ items ~ NEWLINE+ ~ operation ~ NEWLINE+ ~ test}
+
+name = {"Monkey " ~ num ~ ":" }
+
+items = {"Starting items:" ~ num? ~ ("," ~ num)*}
+
+operation = {"Operation:" ~ "new" ~ "=" ~ term ~ op ~ term}
+
+op = {"+" | "*"}
+
+term = {"old" | num}
+
+test = {"Test:" ~ divisible ~ NEWLINE+ ~ true_condition ~ NEWLINE+ ~ false_condition}
+
+divisible = _{"divisible by" ~ num}
+
+true_condition = _{"If true:" ~ "throw to monkey" ~ num}
+
+false_condition = _{"If false:" ~ "throw to monkey" ~ num}
+
+num = {ASCII_DIGIT+}
+
+WHITESPACE = _{ " " }
+
+main = { SOI ~ (monkey ~ NEWLINE*)+ ~ EOI}
