@@ -1,6 +1,7 @@
 use itertools::Itertools;
+use num_integer::Integer;
 use pest::Parser;
-use std::collections::{HashSet, VecDeque};
+use std::collections::VecDeque;
 
 #[macro_use]
 extern crate pest_derive;
@@ -73,7 +74,7 @@ pub fn part_two(input: &str) -> Option<u64> {
 
 fn get_input(input: &str) -> Option<(Vec<Monkey>, u64)> {
     let main = MonkeyParser::parse(Rule::main, input).ok()?.next()?;
-    let mut divisibility = HashSet::new();
+    let mut divisibility = vec![];
     Some((
         main.into_inner()
             .filter(|m| m.as_rule() == Rule::monkey)
@@ -97,7 +98,7 @@ fn get_input(input: &str) -> Option<(Vec<Monkey>, u64)> {
                                 .into_inner()
                                 .filter_map(|i| i.as_str().parse().ok());
                             test = tests.next();
-                            divisibility.insert(test?);
+                            divisibility.push(test?);
                             true_condition = tests.next();
                             false_condition = tests.next();
                         }
@@ -113,7 +114,7 @@ fn get_input(input: &str) -> Option<(Vec<Monkey>, u64)> {
                 })
             })
             .collect(),
-        divisibility.iter().product(),
+        divisibility.iter().fold(1, |lhs, rhs| lhs.lcm(rhs)),
     ))
 }
 

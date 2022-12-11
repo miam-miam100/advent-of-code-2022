@@ -8,6 +8,7 @@ version = "0.8.0"
 dependencies = [
  "chrono",
  "itertools",
+ "num-integer",
  "pest",
  "pest_derive",
  "pico-args",
