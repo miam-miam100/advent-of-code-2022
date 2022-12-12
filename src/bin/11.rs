@@ -45,22 +45,16 @@ pub fn part_one(input: &str) -> Option<u32> {
     let mut inspections = vec![0_u32; monkeys.len()];
     for _ in 1..=20 {
         for idx in 0..monkeys.len() {
-            let monkey = monkeys.get_mut(idx)?;
-            let mut items = vec![];
-            while let Some(item) = monkey.items.pop_front() {
+            while let Some(item) = monkeys.get_mut(idx)?.items.pop_front() {
+                let monkey = monkeys.get_mut(idx)?;
                 let worry = (monkey.operation.calc(item) / 3) % div;
                 *inspections.get_mut(idx)? += 1;
-                items.push((
-                    if worry % monkey.test == 0 {
-                        monkey.true_condition
-                    } else {
-                        monkey.false_condition
-                    },
-                    worry,
-                ));
-            }
-            for (monkey, worry) in items {
-                monkeys.get_mut(monkey)?.items.push_back(worry);
+                let new_monkey = if worry % monkey.test == 0 {
+                    monkey.true_condition
+                } else {
+                    monkey.false_condition
+                };
+                monkeys.get_mut(new_monkey)?.items.push_back(worry)
             }
         }
     }
@@ -72,22 +66,16 @@ pub fn part_two(input: &str) -> Option<u64> {
     let mut inspections = vec![0_u64; monkeys.len()];
     for _ in 1..=10000 {
         for idx in 0..monkeys.len() {
-            let monkey = monkeys.get_mut(idx)?;
-            let mut items = vec![];
-            while let Some(item) = monkey.items.pop_front() {
+            while let Some(item) = monkeys.get_mut(idx)?.items.pop_front() {
+                let monkey = monkeys.get_mut(idx)?;
                 let worry = monkey.operation.calc(item) % div;
                 *inspections.get_mut(idx)? += 1;
-                items.push((
-                    if worry % monkey.test == 0 {
-                        monkey.true_condition
-                    } else {
-                        monkey.false_condition
-                    },
-                    worry,
-                ));
-            }
-            for (monkey, worry) in items {
-                monkeys.get_mut(monkey)?.items.push_back(worry);
+                let new_monkey = if worry % monkey.test == 0 {
+                    monkey.true_condition
+                } else {
+                    monkey.false_condition
+                };
+                monkeys.get_mut(new_monkey)?.items.push_back(worry)
             }
         }
     }
