@@ -7,20 +7,20 @@ Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.
 <!--- advent_readme_stars table --->
 ## 2022 Results
 
-| Day | Part 1 | Part 2 |
-| :---: | :---: | :---: |
-| [Day 1](https://adventofcode.com/2022/day/1) | ⭐ | ⭐ |
-| [Day 2](https://adventofcode.com/2022/day/2) | ⭐ | ⭐ |
-| [Day 3](https://adventofcode.com/2022/day/3) | ⭐ | ⭐ |
-| [Day 4](https://adventofcode.com/2022/day/4) | ⭐ | ⭐ |
-| [Day 5](https://adventofcode.com/2022/day/5) | ⭐ | ⭐ |
-| [Day 6](https://adventofcode.com/2022/day/6) | ⭐ | ⭐ |
-| [Day 7](https://adventofcode.com/2022/day/7) | ⭐ | ⭐ |
-| [Day 8](https://adventofcode.com/2022/day/8) | ⭐ | ⭐ |
-| [Day 9](https://adventofcode.com/2022/day/9) | ⭐ | ⭐ |
-| [Day 10](https://adventofcode.com/2022/day/10) | ⭐ | ⭐ |
-| [Day 11](https://adventofcode.com/2022/day/11) | ⭐ | ⭐ |
-| [Day 12](https://adventofcode.com/2022/day/12) | ⭐ | ⭐ |
+| Day | Solution | Part 1 | Part 2 |
+| :---: | :---: | :---: | :---: |
+| [Day 1](https://adventofcode.com/2022/day/1) | [01.rs](src/bin/01.rs) | ⭐ | ⭐ |
+| [Day 2](https://adventofcode.com/2022/day/2) | [02.rs](src/bin/02.rs) | ⭐ | ⭐ |
+| [Day 3](https://adventofcode.com/2022/day/3) | [03.rs](src/bin/03.rs) | ⭐ | ⭐ |
+| [Day 4](https://adventofcode.com/2022/day/4) | [04.rs](src/bin/04.rs) | ⭐ | ⭐ |
+| [Day 5](https://adventofcode.com/2022/day/5) | [05.rs](src/bin/05.rs) | ⭐ | ⭐ |
+| [Day 6](https://adventofcode.com/2022/day/6) | [06.rs](src/bin/06.rs) | ⭐ | ⭐ |
+| [Day 7](https://adventofcode.com/2022/day/7) | [07.rs](src/bin/07.rs) | ⭐ | ⭐ |
+| [Day 8](https://adventofcode.com/2022/day/8) | [08.rs](src/bin/08.rs) | ⭐ | ⭐ |
+| [Day 9](https://adventofcode.com/2022/day/9) | [09.rs](src/bin/09.rs) | ⭐ | ⭐ |
+| [Day 10](https://adventofcode.com/2022/day/10) | [10.rs](src/bin/10.rs) | ⭐ | ⭐ |
+| [Day 11](https://adventofcode.com/2022/day/11) | [11.rs](src/bin/11.rs) | ⭐ | ⭐ |
+| [Day 12](https://adventofcode.com/2022/day/12) | [12.rs](src/bin/12.rs) | ⭐ | ⭐ |
 <!--- advent_readme_stars table --->
 
 ---
