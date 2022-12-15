@@ -17,3 +17,4 @@ pathfinding = "4.0.0"
 pest = "2.5.1"
 pest_derive = "2.5.1"
 pico-args = "0.5.0"
+prse = {git = "https://github.com/miam-miam100/prse"}

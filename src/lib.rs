@@ -12,30 +12,26 @@ const RELEASE_TIMEZONE_OFFSET: i32 = -5 * 3600;
 
 #[macro_export]
 macro_rules! solve {
-    ($part:expr, $solver:ident, $input:expr) => {{
+    ($part:expr, $solver:ident, $( $input: expr ),+) => {{
         use advent_of_code::{ANSI_BOLD, ANSI_ITALIC, ANSI_RESET};
         use std::fmt::Display;
         use std::time::Instant;
 
-        fn print_result<T: Display>(func: impl FnOnce(&str) -> Option<T>, input: &str) {
-            let timer = Instant::now();
-            let result = func(input);
-            let elapsed = timer.elapsed();
-            match result {
-                Some(result) => {
-                    println!(
-                        "{} {}(elapsed: {:.2?}){}",
-                        result, ANSI_ITALIC, elapsed, ANSI_RESET
-                    );
-                }
-                None => {
-                    println!("not solved.")
-                }
+        let timer = Instant::now();
+        let result = $solver($($input),+);
+        let elapsed = timer.elapsed();
+        println!("🎄 {}Part {}{} 🎄", ANSI_BOLD, $part, ANSI_RESET);
+        match result {
+            Some(result) => {
+                println!(
+                    "{} {}(elapsed: {:.2?}){}",
+                    result, ANSI_ITALIC, elapsed, ANSI_RESET
+                );
+            }
+            None => {
+                println!("not solved.")
             }
         }
-
-        println!("🎄 {}Part {}{} 🎄", ANSI_BOLD, $part, ANSI_RESET);
-        print_result($solver, $input);
     }};
 }
 
