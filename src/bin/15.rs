@@ -39,8 +39,7 @@ fn peripheral(
     }
     (start..=end).map(move |i| (x_s + i, y_s + i))
 }
-// x_i = x - d - 1
-// y_i = y
+
 pub fn part_two(input: &str, max_size: u32) -> Option<u64> {
     let sensors: Vec<_> = get_input(input)
         .map(|(x, y, bx, by)| (x, y, (bx.abs_diff(x) + by.abs_diff(y)) as i32))
@@ -60,37 +59,6 @@ pub fn part_two(input: &str, max_size: u32) -> Option<u64> {
             .any(|(x, y, d)| x_pos.abs_diff(*x) + y_pos.abs_diff(*y) <= *d as u32)
     })
     .map(|(x, y)| (x as u64 * 4000000 + y as u64))
-
-    // let mut x_pos = 0;
-    // let mut y_pos = 0;
-    //
-    // loop {
-    //     if x_pos > max_size {
-    //         y_pos += 1;
-    //         x_pos = 0;
-    //     } else if y_pos > max_size {
-    //         break;
-    //     }
-    //
-    //     let x_skip = sensors
-    //         .iter()
-    //         .filter_map(|(x, y, d)| Some((d * 2 + 1).checked_sub(2 * (y.abs_diff(y_pos as i32)))?))
-    //         .min();
-    //
-    //     match x_skip {
-    //         None => {
-    //             x_pos = 0;
-    //             y_pos += 1;
-    //         }
-    //         Some(s) if x_pos + s > max_size => {
-    //             x_pos = 0;
-    //             y_pos += 1;
-    //         }
-    //         Some(s) => {
-    //             x_pos += s;
-    //         }
-    //     }
-    // }
 }
 
 fn get_input(input: &str) -> impl Iterator<Item = (i32, i32, i32, i32)> + '_ {
