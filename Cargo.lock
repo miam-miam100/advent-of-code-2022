@@ -276,28 +276,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "memchr"
-version = "2.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2dffe52ecf27772e601905b7522cb4ef790d2cc203488bbd0e2fe85fcb74566d"
-
-[[package]]
-name = "minimal-lexical"
-version = "0.2.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "68354c5c6bd36d73ff3feceb05efa59b6acb7626617f4962be322a825e61f79a"
-
-[[package]]
-name = "nom"
-version = "7.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a8903e5a29a317527874d0402f867152a3d21c908bb0b933e416c65e301d4c36"
-dependencies = [
- "memchr",
- "minimal-lexical",
-]
-
-[[package]]
 name = "num-integer"
 version = "0.1.45"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -399,19 +377,19 @@ dependencies = [
 [[package]]
 name = "prse"
 version = "0.1.0"
-source = "git+https://github.com/miam-miam100/prse#0bebd16741d935df9aae40fc2b18efc6db6c373b"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "581ecfa0a974637522cb2a190001bf380b9ac3c84fe8256a2413f703922666fe"
 dependencies = [
  "prse-derive",
- "thiserror",
 ]
 
 [[package]]
 name = "prse-derive"
 version = "0.1.0"
-source = "git+https://github.com/miam-miam100/prse#0bebd16741d935df9aae40fc2b18efc6db6c373b"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4a71be1e6a2c77a2bec309f0a8cbc8b206fd5f5aef47cbdb46ebd6b4a9f1229d"
 dependencies = [
  "itertools",
- "nom",
  "proc-macro2",
  "quote",
  "syn",
